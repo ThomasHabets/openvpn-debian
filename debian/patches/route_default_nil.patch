@@ -1,0 +1,13 @@
+Index: openvpn-2.1.3/openvpn.8
+===================================================================
+--- openvpn-2.1.3.orig/openvpn.8	2010-09-29 13:10:52.308509129 +0200
++++ openvpn-2.1.3/openvpn.8	2010-09-29 13:15:41.652461353 +0200
+@@ -929,7 +929,7 @@
+ otherwise 0.
+ 
+ The default can be specified by leaving an option blank or setting
+-it to "default".
++it to "nil".
+ 
+ The
+ .B network

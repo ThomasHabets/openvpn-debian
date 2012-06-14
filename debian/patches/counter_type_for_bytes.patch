@@ -1,0 +1,29 @@
+Index: openvpn-2.1.3/ssl.c
+===================================================================
+--- openvpn-2.1.3.orig/ssl.c	2010-09-29 13:15:32.009457925 +0200
++++ openvpn-2.1.3/ssl.c	2010-09-29 13:15:37.429457952 +0200
+@@ -3891,7 +3891,8 @@
+ 	   && ks->n_packets >= session->opt->renegotiate_packets)
+        || (packet_id_close_to_wrapping (&ks->packet_id.send))))
+     {
+-      msg (D_TLS_DEBUG_LOW, "TLS: soft reset sec=%d bytes=%d/%d pkts=%d/%d",
++      msg (D_TLS_DEBUG_LOW,
++           "TLS: soft reset sec=%d bytes=" counter_format "/%d pkts=" counter_format "/%d",
+ 	   (int)(ks->established + session->opt->renegotiate_seconds - now),
+ 	   ks->n_bytes, session->opt->renegotiate_bytes,
+ 	   ks->n_packets, session->opt->renegotiate_packets);
+Index: openvpn-2.1.3/ssl.h
+===================================================================
+--- openvpn-2.1.3.orig/ssl.h	2010-07-27 08:13:00.000000000 +0200
++++ openvpn-2.1.3/ssl.h	2010-09-29 13:15:37.429457952 +0200
+@@ -378,8 +378,8 @@
+ 
+   struct buffer_list *paybuf;
+ 
+-  int n_bytes;			 /* how many bytes sent/recvd since last key exchange */
+-  int n_packets;		 /* how many packets sent/recvd since last key exchange */
++  counter_type n_bytes;		 /* how many bytes sent/recvd since last key exchange */
++  counter_type n_packets;	 /* how many packets sent/recvd since last key exchange */
+ 
+   /*
+    * If bad username/password, TLS connection will come up but 'authenticated' will be false.

@@ -1,0 +1,13 @@
+Index: openvpn-2.1.3/route.c
+===================================================================
+--- openvpn-2.1.3.orig/route.c	2010-10-21 12:23:43.777525647 +0200
++++ openvpn-2.1.3/route.c	2010-10-21 12:26:12.525610748 +0200
+@@ -450,6 +450,8 @@
+ 	struct route r;
+ 	int k;
+ 
++	CLEAR(netlist);                /* init_route() will not always init this */
++
+ 	if (!init_route (&r,
+ 			 &netlist,
+ 			 &opt->routes[i],

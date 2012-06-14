@@ -1,0 +1,24 @@
+
+  OpenVPN - eurephia version
+==============================
+
+This is the official OpenVPN version, patched with a
+patch to implement one needed feature for the eurephia
+plug-in.
+
+All this patch does is to provide the plug-in environment
+with a variable containing the SHA1 hash of the
+certificates in use for the session.
+
+eurephia is an authentication and security plug-in which
+enhances the security in OpenVPN even more.  It provides
+user name/password authentication, automatic blacklisting
+of user account, certificates and IP addresses.  In
+provides in addition automatic updates of the iptables
+firewall on Linux, with specific iptables profile per
+user and certificate.
+
+For more information about eurephia, have a look at:
+
+             http://www.eurephia.net/
+
