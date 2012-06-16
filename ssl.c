@@ -1644,8 +1644,22 @@ init_ssl (const struct options *options)
 		}
 	      else
 #endif
-	      {
-		status = SSL_CTX_use_PrivateKey_file (ctx, options->priv_key_file, SSL_FILETYPE_PEM);
+              if (options->priv_key_engine) {
+                ENGINE *engine;
+                EVP_PKEY* pkey;
+
+                ENGINE_load_builtin_engines();
+                engine = ENGINE_by_id(options->priv_key_engine);
+                if (!ENGINE_init(engine)) {
+		  msg (M_WARN|M_SSL, "Cannot init engine %s",
+                       options->priv_key_engine);
+                  goto err;
+                }
+                pkey = ENGINE_load_private_key(engine, options->priv_key_file,
+                                               UI_OpenSSL(), NULL);
+                status = SSL_CTX_use_PrivateKey(ctx, pkey);
+              } else {
+                status = SSL_CTX_use_PrivateKey_file (ctx, options->priv_key_file, SSL_FILETYPE_PEM);
 	      }
 	      if (!status)
 		{
@@ -5246,3 +5260,9 @@ done:
 #else
 static void dummy(void) {}
 #endif /* USE_CRYPTO && USE_SSL*/
+/* ---- Emacs Variables ----
+ * Local Variables:
+ * c-basic-offset: 2
+ * indent-tabs-mode: nil
+ * End:
+ */

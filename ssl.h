@@ -33,6 +33,7 @@
 #include <openssl/err.h>
 #include <openssl/pkcs12.h>
 #include <openssl/x509v3.h>
+#include <openssl/engine.h>
 
 #include "basic.h"
 #include "common.h"
